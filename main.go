@@ -4,21 +4,14 @@ import (
 	"fmt"
 	"os"
 	"os/exec"
-	"runtime"
 
 	"github.com/fatih/color"
 )
 
 func ClearScreen() {
-	if runtime.GOOS == "linux" {
-		cmd := exec.Command("clear") //Linux example, its tested
-		cmd.Stdout = os.Stdout
-		cmd.Run()
-	} else if runtime.GOOS == "windows" {
-		cmd := exec.Command("cmd", "/c", "cls") //Windows example, its tested
-		cmd.Stdout = os.Stdout
-		cmd.Run()
-	}
+	cmd := exec.Command("cmd", "/c", "cls")
+	cmd.Stdout = os.Stdout
+	cmd.Run()
 }
 
 func main() {
@@ -39,7 +32,8 @@ out:
 		fmt.Println("==============================")
 		fmt.Println("1) Create a link")
 		fmt.Println("2) Restore a link")
-		fmt.Println("3) Exit")
+		fmt.Println("3) Restore all links from a parent directory")
+		fmt.Println("4) Exit")
 		fmt.Println()
 		fmt.Println("Enter a number to choose from the menu:")
 
@@ -68,15 +62,24 @@ out:
 			fmt.Println()
 			flashMessage = "Successfully linked directory!"
 		case 2:
-			var dst string
+			var dir string
 			fmt.Println("Absolute path to the directory: ")
-			fmt.Scan(&dst)
+			fmt.Scan(&dir)
 
-			RelinkDir(dst)
+			RelinkDir(dir)
 
 			fmt.Println()
 			flashMessage = "Successfully relinked directory!"
 		case 3:
+			var dir string
+			fmt.Println("Absolute path to the parent directory: ")
+			fmt.Scan(&dir)
+
+			RelinkParentDir(dir)
+
+			fmt.Println()
+			flashMessage = "Successfully relinked parent directory!"
+		case 4:
 			break out
 		default:
 			continue
