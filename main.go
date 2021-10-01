@@ -5,6 +5,7 @@ import (
 	"log"
 	"os"
 
+	"github.com/fatih/color"
 	"github.com/otiai10/copy"
 )
 
@@ -17,16 +18,30 @@ func main() {
 	fmt.Println("Enter the path of the saves folder: ")
 	fmt.Scanln(&src)
 
+	// Check if the source path is a directory
+	finfo, err := os.Lstat(src)
+	if err != nil {
+		log.Fatalf("Could not get info about source directory: %s\n", err.Error())
+	}
+	if !finfo.IsDir() {
+		color.Red("Source path is not a directory!")
+		os.Exit(1)
+	}
+
 	fmt.Println()
 
 	var dst string
 	fmt.Println("Enter the path of the destination folder (to link to): ")
 	fmt.Scanln(&dst)
 
-	// TODO: check that both src and dest are directories
+	// Check that the destination folder doesn't exist
+	if _, err := os.Stat(dst); !os.IsNotExist(err) {
+		color.Red("Destination directory already exists!")
+		os.Exit(1)
+	}
 
 	// Copy files from source directory to destination directory directory
-	err := copy.Copy(src, dst)
+	err = copy.Copy(src, dst)
 	if err != nil {
 		log.Fatalf("Could not copy files from source directory: %s\n", err.Error())
 	}
