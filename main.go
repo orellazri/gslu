@@ -33,7 +33,7 @@ out:
 		}
 
 		fmt.Println("==============================")
-		fmt.Printf("Welcome to GSLU %s\n", VERSION)
+		fmt.Printf("Welcome to GSLU v%s\n", VERSION)
 		fmt.Println("==============================")
 		fmt.Println("1) Create a link")
 		fmt.Println("2) Restore a link")
