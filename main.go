@@ -41,6 +41,7 @@ out:
 		fmt.Println("4) Exit")
 		fmt.Println()
 		fmt.Println("Enter a number to choose from the menu:")
+		fmt.Print("> ")
 
 		scanner.Scan()
 		numLine := scanner.Text()
