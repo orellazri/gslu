@@ -10,6 +10,8 @@ import (
 	"github.com/fatih/color"
 )
 
+const VERSION string = "0.1.0"
+
 func clearScreen() {
 	cmd := exec.Command("cmd", "/c", "cls")
 	cmd.Stdout = os.Stdout
@@ -31,7 +33,7 @@ out:
 		}
 
 		fmt.Println("==============================")
-		fmt.Println("Welcome to GSLU")
+		fmt.Printf("Welcome to GSLU %s\n", VERSION)
 		fmt.Println("==============================")
 		fmt.Println("1) Create a link")
 		fmt.Println("2) Restore a link")
@@ -47,7 +49,7 @@ out:
 			continue
 		}
 
-		ClearScreen()
+		clearScreen()
 
 		switch num {
 		case 1:

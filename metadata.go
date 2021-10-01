@@ -3,7 +3,6 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"log"
 	"os"
 )
 
@@ -33,7 +32,6 @@ func CreateMetadataFile(dstDir string, metadata Metadata) error {
 func ReadMetadataFile(dir string) (*Metadata, error) {
 	fileBytes, err := os.ReadFile(fmt.Sprintf("%s/%s", dir, METADATA_FILENAME))
 	if err != nil {
-		log.Fatalf("Could not read metadata file: %s\n", err.Error())
 		return nil, err
 	}
 
