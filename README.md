@@ -4,6 +4,9 @@ This is a utility program that I originally made for myself to help create links
 
 **This program currently needs to be run as administrator and is only working on Windows.**
 
+![Demo](assets/demo1.png)
+![Demo](assets/demo2.png)
+
 ## Quick Start
 
 Download the release exe and run it as administrator.
