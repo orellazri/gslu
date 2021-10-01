@@ -2,10 +2,12 @@ package main
 
 import (
 	"fmt"
+	"io/fs"
 	"io/ioutil"
 	"log"
 	"os"
 	"strings"
+	"sync"
 
 	"github.com/fatih/color"
 	"github.com/otiai10/copy"
@@ -135,7 +137,13 @@ func RelinkParentDir(dir string) {
 	}
 
 	// Relink all directories of the parent directory
+	var wg sync.WaitGroup
 	for _, f := range files {
-		RelinkDir(fmt.Sprintf("%s/%s", dir, f.Name()), true)
+		wg.Add(1)
+		go func(f fs.FileInfo) {
+			defer wg.Done()
+			RelinkDir(fmt.Sprintf("%s/%s", dir, f.Name()), true)
+		}(f)
 	}
+	wg.Wait()
 }
