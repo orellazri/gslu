@@ -1,9 +1,11 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
 	"os"
 	"os/exec"
+	"strconv"
 
 	"github.com/fatih/color"
 )
@@ -18,6 +20,8 @@ func main() {
 	var flashMessage = ""
 out:
 	for {
+		scanner := bufio.NewScanner(os.Stdin)
+
 		ClearScreen()
 
 		if len(flashMessage) > 0 {
@@ -36,43 +40,47 @@ out:
 		fmt.Println()
 		fmt.Println("Enter a number to choose from the menu:")
 
-		var num int
-		fmt.Scan(&num)
+		scanner.Scan()
+		numLine := scanner.Text()
+		num, err := strconv.Atoi(numLine)
+		if err != nil {
+			continue
+		}
 
 		ClearScreen()
 
 		switch num {
 		case 1:
-			var src string
 			fmt.Println("Enter the absolute path of the saves folder: ")
-			fmt.Scan(&src)
+			scanner.Scan()
+			src := scanner.Text()
 
 			fmt.Println()
 
-			var dst string
 			fmt.Println("Enter the absolute path of the parent destination folder (to link to): ")
 			fmt.Println("For example, if the source folder is Desktop/GameX")
 			fmt.Println("The destination should be OneDrive/Backups")
 			fmt.Println("And the created directory will be OneDrive/Backups/GameX")
-			fmt.Scan(&dst)
+			scanner.Scan()
+			dst := scanner.Text()
 
 			LinkDir(src, dst)
 
 			fmt.Println()
 			flashMessage = "Successfully linked directory!"
 		case 2:
-			var dir string
 			fmt.Println("Absolute path to the directory: ")
-			fmt.Scan(&dir)
+			scanner.Scan()
+			dir := scanner.Text()
 
 			RelinkDir(dir, false)
 
 			fmt.Println()
 			flashMessage = "Successfully relinked directory!"
 		case 3:
-			var dir string
 			fmt.Println("Absolute path to the parent directory: ")
-			fmt.Scan(&dir)
+			scanner.Scan()
+			dir := scanner.Text()
 
 			RelinkParentDir(dir)
 
