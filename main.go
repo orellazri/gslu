@@ -10,7 +10,7 @@ import (
 	"github.com/fatih/color"
 )
 
-func ClearScreen() {
+func clearScreen() {
 	cmd := exec.Command("cmd", "/c", "cls")
 	cmd.Stdout = os.Stdout
 	cmd.Run()
@@ -22,7 +22,7 @@ out:
 	for {
 		scanner := bufio.NewScanner(os.Stdin)
 
-		ClearScreen()
+		clearScreen()
 
 		if len(flashMessage) > 0 {
 			color.Green("%s", flashMessage)
