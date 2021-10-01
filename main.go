@@ -66,7 +66,7 @@ out:
 			fmt.Println("Absolute path to the directory: ")
 			fmt.Scan(&dir)
 
-			RelinkDir(dir)
+			RelinkDir(dir, false)
 
 			fmt.Println()
 			flashMessage = "Successfully relinked directory!"

@@ -83,31 +83,39 @@ directories don't exist.
 
 dst - The destination directory
 */
-func RelinkDir(dst string) {
+func RelinkDir(dst string, ignoreErrors bool) {
 	metadata, err := ReadMetadataFile(dst)
 	if err != nil {
-		// log.Fatalf("Could not read metadata file: %s\n", err.Error())
-		return
+		if ignoreErrors {
+			return
+		}
+		log.Fatalf("Could not read metadata file: %s\n", err.Error())
 	}
 
 	if _, err := os.Stat(metadata.SourcePath); !os.IsNotExist(err) {
-		// color.Red("Source directory already exists!")
-		// os.Exit(1)
-		return
+		if ignoreErrors {
+			return
+		}
+		color.Red("Source directory already exists!")
+		os.Exit(1)
 	}
 
 	// Check that the source directory doesn't exist
 	if _, err := os.Stat(metadata.SourcePath); !os.IsNotExist(err) {
-		// color.Red("Source directory already exists!")
-		// os.Exit(1)
-		return
+		if ignoreErrors {
+			return
+		}
+		color.Red("Source directory already exists!")
+		os.Exit(1)
 	}
 
 	// Copy destination directory to source directory
 	err = copy.Copy(dst, metadata.SourcePath)
 	if err != nil {
-		// log.Fatalf("Could not copy files from source directory: %s\n", err.Error())
-		return
+		if ignoreErrors {
+			return
+		}
+		log.Fatalf("Could not copy files from source directory: %s\n", err.Error())
 	}
 
 	// Remove metadata file from source directory
@@ -128,6 +136,6 @@ func RelinkParentDir(dir string) {
 
 	// Relink all directories of the parent directory
 	for _, f := range files {
-		RelinkDir(fmt.Sprintf("%s/%s", dir, f.Name()))
+		RelinkDir(fmt.Sprintf("%s/%s", dir, f.Name()), true)
 	}
 }
