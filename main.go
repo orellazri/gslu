@@ -37,7 +37,7 @@ out:
 		fmt.Println("==============================")
 		fmt.Println("1) Create a link")
 		fmt.Println("2) Restore a link")
-		fmt.Println("3) Restore all links from a parent directory")
+		fmt.Println("3) Restore all links from a parent folder")
 		fmt.Println("4) Exit")
 		fmt.Println()
 		fmt.Println("Enter a number to choose from the menu:")
@@ -54,6 +54,7 @@ out:
 		switch num {
 		case 1:
 			fmt.Println("Enter the absolute path of the saves folder: ")
+			fmt.Print("> ")
 			scanner.Scan()
 			src := scanner.Text()
 
@@ -62,32 +63,35 @@ out:
 			fmt.Println("Enter the absolute path of the parent destination folder (to link to): ")
 			fmt.Println("For example, if the source folder is Desktop/GameX")
 			fmt.Println("The destination should be OneDrive/Backups")
-			fmt.Println("And the created directory will be OneDrive/Backups/GameX")
+			fmt.Println("And the created folder will be OneDrive/Backups/GameX")
+			fmt.Print("> ")
 			scanner.Scan()
 			dst := scanner.Text()
 
 			LinkDir(src, dst)
 
 			fmt.Println()
-			flashMessage = "Successfully linked directory!"
+			flashMessage = "Successfully linked folder!"
 		case 2:
-			fmt.Println("Absolute path to the directory: ")
+			fmt.Println("Enter the absolute path to the folder: ")
+			fmt.Print("> ")
 			scanner.Scan()
 			dir := scanner.Text()
 
 			RelinkDir(dir, false)
 
 			fmt.Println()
-			flashMessage = "Successfully relinked directory!"
+			flashMessage = "Successfully relinked folder!"
 		case 3:
-			fmt.Println("Absolute path to the parent directory: ")
+			fmt.Println("Enter the absolute path to the parent folder: ")
+			fmt.Print("> ")
 			scanner.Scan()
 			dir := scanner.Text()
 
 			RelinkParentDir(dir)
 
 			fmt.Println()
-			flashMessage = "Successfully relinked parent directory!"
+			flashMessage = "Successfully relinked parent folder!"
 		case 4:
 			break out
 		default:
