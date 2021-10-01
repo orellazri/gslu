@@ -11,7 +11,7 @@ This is a utility program that I originally made for myself to help create links
 
 ---
 
-**Important:** For some reason Windows Defender considers the binary as a virus. If that happens to you, you can add it to the Defender's exclusion list, or download the source code and run with `go run .` for now.
+**Important:** For some reason Windows Defender treats the binary as a virus. If that happens to you, you can add it to the Defender's exclusion list, or download the source code and run with `go run .` for now.
 
 ---
 
