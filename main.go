@@ -23,9 +23,8 @@ out:
 		if len(flashMessage) > 0 {
 			color.Green("%s", flashMessage)
 			flashMessage = ""
+			fmt.Println()
 		}
-
-		fmt.Println()
 
 		fmt.Println("==============================")
 		fmt.Println("Welcome to GSLU")
