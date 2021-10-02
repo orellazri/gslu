@@ -26,7 +26,7 @@ dst - Destination directory
 func LinkDir(src, dst string) {
 	// Check that the source directory exists
 	if _, err := os.Stat(src); os.IsNotExist(err) {
-		color.Red("Source directory does not exists!")
+		color.Red("Source directory does not exist!")
 		os.Exit(1)
 	}
 
